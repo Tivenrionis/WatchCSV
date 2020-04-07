@@ -1,5 +1,6 @@
 package com.tivenstudio.app;
 
+import com.tivenstudio.FISRaport.FISRaport;
 import com.tivenstudio.measurement.Measurement;
 import com.tivenstudio.utilities.CSVReader;
 import com.tivenstudio.utilities.DirectoryReader;
@@ -14,8 +15,10 @@ public class Main {
     private static CSVReader csvReader;
     private static DirectoryReader directoryReader;
 
+
     public static void main(String[] args) {
         listFiles(measurementsPath);
+
         directoryReader = new DirectoryReader(measurementsPath);
         List<String> paths = directoryReader.getPaths();
         Measurement measurement;
@@ -23,8 +26,18 @@ public class Main {
         for (String s : paths) {
             measurement = new Measurement(new File(s));
             System.out.println(measurement.toString());
-
         }
+
+        directoryReader = new DirectoryReader(FISRaportPath);
+        paths = directoryReader.getPaths();
+        FISRaport fisRaport;
+
+        for (String s : paths) {
+            fisRaport = new FISRaport(new File(s));
+            fisRaport.showBodies();
+        }
+
+
 
     }
 
