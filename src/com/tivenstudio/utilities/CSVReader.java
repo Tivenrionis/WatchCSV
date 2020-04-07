@@ -22,17 +22,22 @@ public class CSVReader {
     }
 
     public void storeCSVAsList() {
-
+        BufferedReader bufferedReader = null;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
+            bufferedReader = new BufferedReader(new FileReader(this.file));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 this.values.add(line);
             }
-            bufferedReader.close();
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 

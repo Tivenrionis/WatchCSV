@@ -1,6 +1,8 @@
 package com.tivenstudio.utilities;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 public class DirectoryReader {
@@ -23,6 +25,25 @@ public class DirectoryReader {
             paths.add(file.getAbsolutePath());
         }
         return paths;
+    }
+
+    private void createInfoFile(File DIR) {
+        BufferedWriter bufferedWriter = null;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(DIR + "\\info.txt"));
+            for (File file : this.files) {
+                bufferedWriter.write(file.getName());
+                bufferedWriter.newLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

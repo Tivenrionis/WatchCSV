@@ -38,7 +38,6 @@ public class Main {
 
     public static void read(File file) {
         csvReader = new CSVReader(file);
-
         for (String line : csvReader.getValues()) {
             System.out.println(line);
         }
