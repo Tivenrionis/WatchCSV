@@ -12,10 +12,10 @@ public class FISRaport {
     public FISRaport(File path) {
         this.path = path;
         this.bodiesMap = new HashMap<>();
-        getbodiesMapFromCSV();
+        mapBodiesFromCSV();
     }
 
-    public Map<String, List<String>> getbodiesMap() {
+    public Map<String, List<String>> getBodiesMap() {
         return bodiesMap;
     }
 
@@ -28,7 +28,7 @@ public class FISRaport {
 
     }
 
-    private void getbodiesMapFromCSV() {
+    private void mapBodiesFromCSV() {
         CSVReader csvReader = new CSVReader(this.path, 3);
         List<String> values = csvReader.getValues();
         List<String> valuesToMap;

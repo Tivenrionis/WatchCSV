@@ -16,7 +16,6 @@ public class CSVReader {
         this.values = new ArrayList<>();
         storeCSVAsList();
     }
-
     public CSVReader(File file, int beginIndex) {
         this.file = file;
         this.values = new ArrayList<>();
@@ -46,13 +45,13 @@ public class CSVReader {
             }
         }
     }
-
     public void storeCSVAsList(int beginIndex) {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(this.file));
             String line;
-            for (int i = 0; i < beginIndex; i++) {
+            for (int i=0;i<beginIndex;i++)
+            {
                 bufferedReader.readLine();
             }
             while ((line = bufferedReader.readLine()) != null) {
