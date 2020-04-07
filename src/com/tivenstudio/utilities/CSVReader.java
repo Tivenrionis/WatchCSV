@@ -30,12 +30,11 @@ public class CSVReader {
                 this.values.add(line);
             }
             bufferedReader.close();
-            //return true;
 
         } catch (Exception e) {
             e.printStackTrace();
-            // return false;
         }
+
 
     }
 

@@ -4,6 +4,7 @@ import com.tivenstudio.utilities.CSVReader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Measurement {
@@ -14,20 +15,41 @@ public class Measurement {
     public Measurement(File path) {
         this.path = path;
         this.measurementValues = new ArrayList<>();
-        getMeasurementFromFile();
+        getMeasurementValuesFromFile();
+        if (this.measurementValues != null) {
+            this.PIN = this.measurementValues.get(2);
+        }
     }
 
     public List<String> getMeasurementValues() {
         return measurementValues;
     }
 
-    private void getMeasurementFromFile() {
+    public String getPIN() {
+        return PIN;
+    }
+
+    public String getShortPIN() {
+        if (getPIN().length() == 14)
+            return getPIN().substring(6, 13);
+        else
+            return getPIN();
+    }
+
+    private void getMeasurementValuesFromFile() {
         CSVReader csvReader = new CSVReader(this.path);
         String line = csvReader.getValues().get(0);
         String[] values = line.split(";");
+        this.measurementValues.addAll(Arrays.asList(values));
+    }
 
-        for (String value : values) {
-            this.measurementValues.add(value);
-        }
+    @Override
+    public String toString() {
+        return String.format("\n[Date] %s\n[Time] %s\n[PIN] %s\n[Doors] %s\n[Measured Speed] %s\n",
+                this.measurementValues.get(0),
+                this.measurementValues.get(1),
+                this.measurementValues.get(2),
+                this.measurementValues.get(3),
+                this.measurementValues.get(4));
     }
 }
