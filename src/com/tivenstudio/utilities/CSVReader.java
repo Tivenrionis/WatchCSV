@@ -10,15 +10,18 @@ public class CSVReader {
 
     private File file;
     private List<String> values;
+    private BufferedReader bufferedReader;
 
     public CSVReader(File file) {
         this.file = file;
         this.values = new ArrayList<>();
+        this.bufferedReader=null;
         storeCSVAsList();
     }
     public CSVReader(File file, int beginIndex) {
         this.file = file;
         this.values = new ArrayList<>();
+        this.bufferedReader=null;
         storeCSVAsList(beginIndex);
     }
 
@@ -27,11 +30,10 @@ public class CSVReader {
     }
 
     public void storeCSVAsList() {
-        BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader(this.file));
+            this.bufferedReader = new BufferedReader(new FileReader(this.file));
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = this.bufferedReader.readLine()) != null) {
                 this.values.add(line);
             }
 
@@ -39,22 +41,21 @@ public class CSVReader {
             e.printStackTrace();
         } finally {
             try {
-                bufferedReader.close();
+                this.bufferedReader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
     public void storeCSVAsList(int beginIndex) {
-        BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader(this.file));
+            this.bufferedReader = new BufferedReader(new FileReader(this.file));
             String line;
             for (int i=0;i<beginIndex;i++)
             {
-                bufferedReader.readLine();
+                this.bufferedReader.readLine();
             }
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = this.bufferedReader.readLine()) != null) {
                 this.values.add(line);
             }
 
@@ -62,7 +63,7 @@ public class CSVReader {
             e.printStackTrace();
         } finally {
             try {
-                bufferedReader.close();
+                this.bufferedReader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
