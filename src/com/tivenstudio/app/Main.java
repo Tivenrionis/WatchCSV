@@ -3,6 +3,7 @@ package com.tivenstudio.app;
 import com.tivenstudio.FISRaport.FISRaport;
 import com.tivenstudio.measurement.Measurement;
 import com.tivenstudio.utilities.CSVReader;
+import com.tivenstudio.utilities.CSVWriter;
 import com.tivenstudio.utilities.DirectoryReader;
 
 import java.io.File;
@@ -11,10 +12,11 @@ import java.util.List;
 public class Main {
     private final static File measurementsPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Pomiary");
     private final static File FISRaportPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Raport");
+    private final static File finalDestinationPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Docelowy");
 
     private static CSVReader csvReader;
+    private static CSVWriter csvWriter;
     private static DirectoryReader directoryReader;
-
 
     public static void main(String[] args) {
         listFiles(measurementsPath);
@@ -37,6 +39,8 @@ public class Main {
             fisRaport.showBodies();
         }
 
+        csvWriter = new CSVWriter("pomiar.csv", finalDestinationPath);
+        csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodiesMap().toString());
 
 
     }
