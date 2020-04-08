@@ -39,6 +39,9 @@ public class Main {
             fisRaport.showBodies();
         }
 
+        fisRaport = new FISRaport(new File(paths.get(0)));
+        fisRaport.showBodies(new Measurement(new File (measurementsPath+"\\est.csv")).getShortPIN());
+
         csvWriter = new CSVWriter("pomiar.csv", finalDestinationPath);
         csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodiesMap().toString());
 
