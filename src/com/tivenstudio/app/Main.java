@@ -1,6 +1,7 @@
 package com.tivenstudio.app;
 
 import com.tivenstudio.FISRaport.FISRaport;
+import com.tivenstudio.finalRaport.FinalRaport;
 import com.tivenstudio.measurement.Measurement;
 import com.tivenstudio.utilities.CSVReader;
 import com.tivenstudio.utilities.CSVWriter;
@@ -40,11 +41,16 @@ public class Main {
         }
 
         fisRaport = new FISRaport(new File(paths.get(0)));
-        fisRaport.showBodies(new Measurement(new File (measurementsPath+"\\est.csv")).getShortPIN());
+        fisRaport.showBodies(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN());
 
         csvWriter = new CSVWriter("pomiar.csv", finalDestinationPath);
-        csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodiesMap().toString());
+        csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodyData(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN()));
 
+
+        FinalRaport finalRaport = new FinalRaport(finalDestinationPath, new Measurement(new File(measurementsPath + "\\est.csv")), fisRaport);
+
+        System.out.println(finalRaport.getValues().get(0));
+        System.out.println(finalRaport.getValues().get(1));
 
     }
 
