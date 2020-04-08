@@ -31,6 +31,7 @@ public class FinalRaport {
                 "\"TLR Schiebtur (ja/nein)\"," +
                 "\"TGM Geschwindigkeit [m/s]\"";
         this.values.add(this.headMessage);
+        this.PIN = measurement.getPIN();
         fillValues();
     }
 
