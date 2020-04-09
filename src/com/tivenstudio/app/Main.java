@@ -51,6 +51,8 @@ public class Main {
 
         System.out.println(finalRaport.getValues().get(0));
         System.out.println(finalRaport.getValues().get(1));
+       // csvWriter = new CSVWriter(finalRaport.getMeasurement().getPath().getName(), finalDestinationPath);
+        csvWriter.storeData(finalRaport.getValues());
 
     }
 

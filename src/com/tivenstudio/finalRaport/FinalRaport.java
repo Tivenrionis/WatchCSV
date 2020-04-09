@@ -43,6 +43,18 @@ public class FinalRaport {
         return PIN;
     }
 
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
+    public FISRaport getFisRaport() {
+        return fisRaport;
+    }
+
+    public File getPath() {
+        return path;
+    }
+
     public void fillValues() {
         List<String> fisData = getDataFromFIS();
         List<String> measurementData = getMeasurementData();
