@@ -21,6 +21,10 @@ public class Measurement {
         }
     }
 
+    public File getPath() {
+        return path;
+    }
+
     public List<String> getMeasurementValues() {
         return measurementValues;
     }
