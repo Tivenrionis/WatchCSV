@@ -15,6 +15,10 @@ public class FISRaport {
         mapBodiesFromCSV();
     }
 
+    public File getPath() {
+        return path;
+    }
+
     public Map<String, List<String>> getBodiesMap() {
         return bodiesMap;
     }
