@@ -5,9 +5,11 @@ import com.tivenstudio.finalRaport.FinalRaport;
 import com.tivenstudio.measurement.Measurement;
 import com.tivenstudio.utilities.CSVReader;
 import com.tivenstudio.utilities.CSVWriter;
+import com.tivenstudio.utilities.DirectoryComparator;
 import com.tivenstudio.utilities.DirectoryReader;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 
 public class Main {
@@ -51,8 +53,11 @@ public class Main {
 
         System.out.println(finalRaport.getValues().get(0));
         System.out.println(finalRaport.getValues().get(1));
+
         csvWriter = new CSVWriter(finalRaport.getMeasurement().getPath().getName(), finalDestinationPath);
         csvWriter.storeData(finalRaport.getValues());
+
+        listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
 
     }
 
@@ -60,6 +65,12 @@ public class Main {
     public static void listFiles(File directory) {
         directoryReader = new DirectoryReader(directory);
         for (File file : directoryReader.getFiles()) {
+            System.out.println(file.getName());
+        }
+    }
+
+    public static void listFiles(Collection<File> collection) {
+        for (File file : collection) {
             System.out.println(file.getName());
         }
     }
