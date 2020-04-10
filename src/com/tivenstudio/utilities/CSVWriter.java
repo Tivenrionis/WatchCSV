@@ -29,7 +29,9 @@ public class CSVWriter {
             e.printStackTrace();
         } finally {
             try {
-                bufferedWriter.close();
+                if (this.bufferedWriter != null) {
+                    this.bufferedWriter.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,7 +55,9 @@ public class CSVWriter {
             e.printStackTrace();
         } finally {
             try {
-                bufferedWriter.close();
+                if (this.bufferedWriter != null) {
+                    this.bufferedWriter.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -15,13 +15,14 @@ public class CSVReader {
     public CSVReader(File file) {
         this.file = file;
         this.values = new ArrayList<>();
-        this.bufferedReader=null;
+        this.bufferedReader = null;
         storeCSVAsList();
     }
+
     public CSVReader(File file, int beginIndex) {
         this.file = file;
         this.values = new ArrayList<>();
-        this.bufferedReader=null;
+        this.bufferedReader = null;
         storeCSVAsList(beginIndex);
     }
 
@@ -41,18 +42,20 @@ public class CSVReader {
             e.printStackTrace();
         } finally {
             try {
-                this.bufferedReader.close();
+                if (this.bufferedReader != null) {
+                    this.bufferedReader.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
     public void storeCSVAsList(int beginIndex) {
         try {
             this.bufferedReader = new BufferedReader(new FileReader(this.file));
             String line;
-            for (int i=0;i<beginIndex;i++)
-            {
+            for (int i = 0; i < beginIndex; i++) {
                 this.bufferedReader.readLine();
             }
             while ((line = this.bufferedReader.readLine()) != null) {
@@ -63,7 +66,9 @@ public class CSVReader {
             e.printStackTrace();
         } finally {
             try {
-                this.bufferedReader.close();
+                if (this.bufferedReader != null) {
+                    this.bufferedReader.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
