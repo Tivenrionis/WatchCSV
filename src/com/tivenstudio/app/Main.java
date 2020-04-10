@@ -44,20 +44,35 @@ public class Main {
 
         fisRaport = new FISRaport(new File(paths.get(0)));
         fisRaport.showBodies(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN());
+        System.out.println();
 
         csvWriter = new CSVWriter("pomiar.csv", finalDestinationPath);
         csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodyData(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN()));
 
 
-        FinalRaport finalRaport = new FinalRaport(finalDestinationPath, new Measurement(new File(measurementsPath + "\\est.csv")), fisRaport);
+        FinalRaport finalRaport = new FinalRaport(new Measurement(new File(measurementsPath + "\\est.csv")), fisRaport);
 
         System.out.println(finalRaport.getValues().get(0));
         System.out.println(finalRaport.getValues().get(1));
+        System.out.println();
 
-        csvWriter = new CSVWriter(finalRaport.getMeasurement().getPath().getName(), finalDestinationPath);
-        csvWriter.storeData(finalRaport.getValues());
+        generateFinalRaport(finalRaport);
+
 
         listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
+
+    }
+
+    private static boolean generateFinalRaport(FinalRaport finalRaport) {
+        if (finalRaport != null) {
+            csvWriter = new CSVWriter(finalRaport.getFileName(), finalDestinationPath);
+            csvWriter.storeData(finalRaport.getValues());
+            return true;
+        } else {
+            System.out.println("[LOG] Final raport does not exist");
+            return false;
+        }
+
 
     }
 
