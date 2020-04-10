@@ -49,11 +49,12 @@ public class Measurement {
 
     @Override
     public String toString() {
-        return String.format("\n[Date] %s\n[Time] %s\n[PIN] %s\n[Doors] %s\n[Measured Speed] %s\n",
+        String values = String.format("\n\t[Date] %s\n\t[Time] %s\n\t[PIN] %s\n\t[Doors] %s\n\t[Measured Speed] %s\n",
                 this.measurementValues.get(0),
                 this.measurementValues.get(1),
                 this.measurementValues.get(2),
                 this.measurementValues.get(3),
                 this.measurementValues.get(4));
+        return String.format("\n[FileName] %s\n[Path] %s\n[Values] %s", this.path.getName(), this.path, values);
     }
 }

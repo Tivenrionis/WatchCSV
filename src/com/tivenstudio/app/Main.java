@@ -9,6 +9,7 @@ import com.tivenstudio.utilities.DirectoryComparator;
 import com.tivenstudio.utilities.DirectoryReader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,17 +25,11 @@ public class Main {
     public static void main(String[] args) {
         listFiles(measurementsPath);
 
-        directoryReader = new DirectoryReader(measurementsPath);
-        List<String> paths = directoryReader.getPaths();
-        Measurement measurement;
-
-        for (String s : paths) {
-            measurement = new Measurement(new File(s));
-            System.out.println(measurement.toString());
-        }
+        System.out.println(getFISRaports());
+        System.out.println(getMeasurements());
 
         directoryReader = new DirectoryReader(FISRaportPath);
-        paths = directoryReader.getPaths();
+        List<String >paths = directoryReader.getPaths();
         FISRaport fisRaport;
 
         for (String s : paths) {
@@ -63,6 +58,32 @@ public class Main {
 
     }
 
+    private static List<Measurement> getMeasurements() {
+        directoryReader = new DirectoryReader(measurementsPath);
+        List<String> paths = directoryReader.getPaths();
+        List<Measurement> measurementsInDirectory = new ArrayList<>();
+        Measurement measurement;
+
+        for (String s : paths) {
+            measurement = new Measurement(new File(s));
+            measurementsInDirectory.add(measurement);
+        }
+        return measurementsInDirectory;
+    }
+
+    private static List<FISRaport> getFISRaports() {
+        directoryReader = new DirectoryReader(FISRaportPath);
+        List<String> paths = directoryReader.getPaths();
+        List<FISRaport> raportsInDirectory = new ArrayList<>();
+        FISRaport fisRaport;
+
+        for (String s : paths) {
+            fisRaport = new FISRaport(new File(s));
+            raportsInDirectory.add(fisRaport);
+        }
+        return raportsInDirectory;
+    }
+
     private static boolean generateFinalRaport(FinalRaport finalRaport) {
         if (finalRaport != null) {
             csvWriter = new CSVWriter(finalRaport.getFileName(), finalDestinationPath);
@@ -72,8 +93,6 @@ public class Main {
             System.out.println("[LOG] Final raport does not exist");
             return false;
         }
-
-
     }
 
     public static void listFiles(File directory) {

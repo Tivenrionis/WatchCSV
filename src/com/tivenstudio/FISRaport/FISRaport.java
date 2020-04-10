@@ -68,5 +68,8 @@ public class FISRaport {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("\n[FileName] %s\n[Path] %s\n[Values] %s", this.path.getName(), this.path, this.bodiesMap);
+    }
 }
