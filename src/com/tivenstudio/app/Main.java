@@ -3,7 +3,6 @@ package com.tivenstudio.app;
 import com.tivenstudio.FISRaport.FISRaport;
 import com.tivenstudio.finalRaport.FinalRaport;
 import com.tivenstudio.measurement.Measurement;
-import com.tivenstudio.utilities.CSVReader;
 import com.tivenstudio.utilities.CSVWriter;
 import com.tivenstudio.utilities.DirectoryComparator;
 import com.tivenstudio.utilities.DirectoryReader;
@@ -18,7 +17,6 @@ public class Main {
     private final static File FISRaportPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Raport");
     private final static File finalDestinationPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Docelowy");
 
-    private static CSVReader csvReader;
     private static CSVWriter csvWriter;
     private static DirectoryReader directoryReader;
 
@@ -30,34 +28,27 @@ public class Main {
         System.out.println("---------------------------");
         System.out.println(getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath)));
 
-        directoryReader = new DirectoryReader(FISRaportPath);
-        List<String> paths = directoryReader.getPaths();
-        FISRaport fisRaport;
 
-        for (String s : paths) {
-            fisRaport = new FISRaport(new File(s));
-            fisRaport.showBodies();
-        }
-
-        fisRaport = new FISRaport(new File(paths.get(0)));
-        fisRaport.showBodies(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN());
-        System.out.println();
-
-        csvWriter = new CSVWriter("pomiar.csv", finalDestinationPath);
-        csvWriter.storeData(new FISRaport(new File(paths.get(0))).getBodyData(new Measurement(new File(measurementsPath + "\\est.csv")).getShortPIN()));
-
-
-        FinalRaport finalRaport = new FinalRaport(new Measurement(new File(measurementsPath + "\\est.csv")), fisRaport);
-
-        System.out.println(finalRaport.getValues().get(0));
-        System.out.println(finalRaport.getValues().get(1));
-        System.out.println();
-
-        generateFinalRaport(finalRaport);
-
+        initialize();
 
         listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
 
+    }
+
+    private static boolean initialize() {
+
+        List<Measurement> notProcessed = getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
+        List<FISRaport> fisRaports = getFISRaports();
+        FinalRaport finalRaport;
+
+        for (Measurement measurement : notProcessed) {
+            for (FISRaport fisRaport : fisRaports) {
+                finalRaport = new FinalRaport(measurement, fisRaport);
+                generateFinalRaport(finalRaport);
+            }
+
+        }
+        return true;
     }
 
     private static List<Measurement> getMeasurements() {

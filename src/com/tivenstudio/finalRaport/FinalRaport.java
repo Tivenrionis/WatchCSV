@@ -15,6 +15,7 @@ public class FinalRaport {
     private String PIN;
 
     public FinalRaport(Measurement measurement, FISRaport fisRaport) {
+        this.fisRaport = fisRaport;
         this.headMessage = "\"Datum\"," +
                 "\"Zeit\"," +
                 "\"Fahrzeugident\"," +
@@ -26,7 +27,6 @@ public class FinalRaport {
                 "\"TLR Schiebtur (ja/nein)\"," +
                 "\"TGM Geschwindigkeit [m/s]\"";
         this.measurement = measurement;
-        this.fisRaport = fisRaport;
         this.values = new ArrayList<>();
         this.values.add(this.headMessage);
 
@@ -63,7 +63,7 @@ public class FinalRaport {
         String stringOfValues = "";
 
 
-        if ((!fisData.isEmpty()) && (!measurementData.isEmpty())) {
+        if (fisData != null && measurementData != null) {
 
             for (String s : measurementData) {
                 if (measurementData.indexOf(s) != measurementData.size() - 1) {
