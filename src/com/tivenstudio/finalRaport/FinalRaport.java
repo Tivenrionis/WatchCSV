@@ -3,23 +3,18 @@ package com.tivenstudio.finalRaport;
 import com.tivenstudio.FISRaport.FISRaport;
 import com.tivenstudio.measurement.Measurement;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FinalRaport {
     private final String headMessage;
-    private File path;
+    private String fileName;
     private Measurement measurement;
     private FISRaport fisRaport;
     private List<String> values;
     private String PIN;
 
-    public FinalRaport(File path, Measurement measurement, FISRaport fisRaport) {
-        this.path = path;
-        this.values = new ArrayList<>();
-        this.measurement = measurement;
-        this.fisRaport = fisRaport;
+    public FinalRaport(Measurement measurement, FISRaport fisRaport) {
         this.headMessage = "\"Datum\"," +
                 "\"Zeit\"," +
                 "\"Fahrzeugident\"," +
@@ -30,9 +25,16 @@ public class FinalRaport {
                 "\"TLL Schiebtur (ja/nein)\"," +
                 "\"TLR Schiebtur (ja/nein)\"," +
                 "\"TGM Geschwindigkeit [m/s]\"";
+        this.measurement = measurement;
+        this.fisRaport = fisRaport;
+        this.values = new ArrayList<>();
         this.values.add(this.headMessage);
-        this.PIN = measurement.getPIN();
-        fillValues();
+
+        if (measurement != null) {
+            this.PIN = measurement.getPIN();
+            this.fileName = measurement.getPath().getName();
+            fillValues();
+        }
     }
 
     public List<String> getValues() {
@@ -43,16 +45,16 @@ public class FinalRaport {
         return PIN;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
     public Measurement getMeasurement() {
         return measurement;
     }
 
     public FISRaport getFisRaport() {
         return fisRaport;
-    }
-
-    public File getPath() {
-        return path;
     }
 
     public void fillValues() {

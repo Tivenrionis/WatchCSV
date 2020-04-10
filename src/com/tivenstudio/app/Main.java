@@ -61,7 +61,6 @@ public class Main {
 
     }
 
-
     public static void listFiles(File directory) {
         directoryReader = new DirectoryReader(directory);
         for (File file : directoryReader.getFiles()) {
@@ -75,18 +74,5 @@ public class Main {
         }
     }
 
-    public static void read(File file) {
-        csvReader = new CSVReader(file);
-        for (String line : csvReader.getValues()) {
-            System.out.println(line);
-        }
 
-    }
-
-    public static void read(Measurement measurement) {
-        for (String line : measurement.getMeasurementValues()) {
-            System.out.println(line);
-        }
-
-    }
 }
