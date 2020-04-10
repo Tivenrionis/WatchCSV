@@ -27,9 +27,11 @@ public class Main {
 
         System.out.println(getFISRaports());
         System.out.println(getMeasurements());
+        System.out.println("---------------------------");
+        System.out.println(getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath)));
 
         directoryReader = new DirectoryReader(FISRaportPath);
-        List<String >paths = directoryReader.getPaths();
+        List<String> paths = directoryReader.getPaths();
         FISRaport fisRaport;
 
         for (String s : paths) {
@@ -61,14 +63,24 @@ public class Main {
     private static List<Measurement> getMeasurements() {
         directoryReader = new DirectoryReader(measurementsPath);
         List<String> paths = directoryReader.getPaths();
-        List<Measurement> measurementsInDirectory = new ArrayList<>();
+        List<Measurement> measurementsFromDirectory = new ArrayList<>();
         Measurement measurement;
 
         for (String s : paths) {
             measurement = new Measurement(new File(s));
-            measurementsInDirectory.add(measurement);
+            measurementsFromDirectory.add(measurement);
         }
-        return measurementsInDirectory;
+        return measurementsFromDirectory;
+    }
+
+    private static List<Measurement> getMeasurements(Collection<File> collection) {
+        List<Measurement> measurementsFromCollection = new ArrayList<>();
+        Measurement measurement;
+        for (File file : collection) {
+            measurement = new Measurement(new File(file.getAbsolutePath()));
+            measurementsFromCollection.add(measurement);
+        }
+        return measurementsFromCollection;
     }
 
     private static List<FISRaport> getFISRaports() {
