@@ -17,7 +17,6 @@ public class Main {
     private final static File FISRaportPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Raport");
     private final static File finalDestinationPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Docelowy");
 
-    private static CSVWriter csvWriter;
     private static DirectoryReader directoryReader;
 
     public static void main(String[] args) {
@@ -95,7 +94,7 @@ public class Main {
 
     private static boolean generateFinalRaport(FinalRaport finalRaport) {
         if (finalRaport != null) {
-            csvWriter = new CSVWriter(finalRaport.getFileName(), finalDestinationPath);
+            CSVWriter csvWriter = new CSVWriter(finalRaport.getFileName(), finalDestinationPath);
             csvWriter.storeData(finalRaport.getValues());
             return true;
         } else {
