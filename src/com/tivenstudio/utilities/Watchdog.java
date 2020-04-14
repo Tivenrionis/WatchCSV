@@ -20,6 +20,23 @@ public class Watchdog {
     public Watchdog(Path directory) throws IOException {
         this.watchService = FileSystems.getDefault().newWatchService();
         this.keyMap = new HashMap<>();
+        registerDirectory(directory);
 
+    }
+
+    private void registerDirectory(Path dir) throws IOException {
+        WatchKey key = dir.register(this.watchService,
+                StandardWatchEventKinds.ENTRY_CREATE,
+                StandardWatchEventKinds.ENTRY_MODIFY,
+                StandardWatchEventKinds.ENTRY_DELETE);
+        keyMap.put(key, dir);
+    }
+
+    public WatchService getWatchService() {
+        return watchService;
+    }
+
+    public Map<WatchKey, Path> getKeyMap() {
+        return keyMap;
     }
 }

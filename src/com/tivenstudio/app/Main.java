@@ -6,8 +6,14 @@ import com.tivenstudio.measurement.Measurement;
 import com.tivenstudio.utilities.CSVWriter;
 import com.tivenstudio.utilities.DirectoryComparator;
 import com.tivenstudio.utilities.DirectoryReader;
+import com.tivenstudio.utilities.Watchdog;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,6 +24,7 @@ public class Main {
     private final static File finalDestinationPath = new File("C:\\Users\\tiven\\OneDrive\\Pulpit\\Docelowy");
 
     private static DirectoryReader directoryReader;
+    private static Watchdog watchdog;
 
     public static void main(String[] args) {
         listFiles(measurementsPath);
@@ -32,6 +39,48 @@ public class Main {
 
         listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
 
+        startWatchService(measurementsPath);
+
+    }
+
+
+    private static void startWatchService(File path) {
+        try {
+            watchdog = new Watchdog(path.toPath());
+            WatchKey watchKey;
+
+            do {
+                watchKey = watchdog.getWatchService().take();
+
+                for (WatchEvent<?> event : watchKey.pollEvents()) {
+                    WatchEvent.Kind<?> kind = event.kind();
+                    Path context = (Path) event.context();
+                    System.out.println(path + " : " + kind + " : " + context);
+
+                    if (kind.equals(StandardWatchEventKinds.ENTRY_CREATE)) {
+                        String filePath = path.getAbsolutePath() + "\\" + context;
+                        System.out.println(filePath);
+//                        if (filePath.contains(".csv")) {
+//                            Measurement createdMeasurement = new Measurement(new File(filePath));
+//                            FinalRaport finalRaport;
+//                            List<FISRaport> fisRaports = getFISRaports();
+//                            for (FISRaport fisRaport : fisRaports) {
+//                                finalRaport = new FinalRaport(createdMeasurement, fisRaport);
+//                                generateFinalRaport(finalRaport);
+//                            }
+//                        }
+                    }
+                }
+            } while (watchKey.reset());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                watchdog.getWatchService().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static boolean initialize() {
