@@ -29,7 +29,7 @@ public class Main {
         System.out.println(getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath)));
 
 
-        initialize();
+        System.out.println(initialize());
 
         listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
 
@@ -58,8 +58,10 @@ public class Main {
         Measurement measurement;
 
         for (String s : paths) {
-            measurement = new Measurement(new File(s));
-            measurementsFromDirectory.add(measurement);
+            if (s.contains(".csv")) {
+                measurement = new Measurement(new File(s));
+                measurementsFromDirectory.add(measurement);
+            }
         }
         return measurementsFromDirectory;
     }
@@ -68,8 +70,10 @@ public class Main {
         List<Measurement> measurementsFromCollection = new ArrayList<>();
         Measurement measurement;
         for (File file : collection) {
-            measurement = new Measurement(new File(file.getAbsolutePath()));
-            measurementsFromCollection.add(measurement);
+            if (file.getName().contains(".csv")) {
+                measurement = new Measurement(new File(file.getAbsolutePath()));
+                measurementsFromCollection.add(measurement);
+            }
         }
         return measurementsFromCollection;
     }
@@ -81,8 +85,10 @@ public class Main {
         FISRaport fisRaport;
 
         for (String s : paths) {
-            fisRaport = new FISRaport(new File(s));
-            raportsInDirectory.add(fisRaport);
+            if (s.contains(".csv")) {
+                fisRaport = new FISRaport(new File(s));
+                raportsInDirectory.add(fisRaport);
+            }
         }
         return raportsInDirectory;
     }
