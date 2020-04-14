@@ -33,14 +33,11 @@ public class Main {
         System.out.println(getMeasurements());
         System.out.println("---------------------------");
         System.out.println(getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath)));
-
-
-        System.out.println(initialize());
-
-        listFiles(DirectoryComparator.compare(measurementsPath, finalDestinationPath));
-
-        startWatchService(measurementsPath);
-
+        System.out.println();
+        System.out.println("\t Starting main app");
+        if (initialize()) {
+            startWatchService(measurementsPath);
+        }
     }
 
 
@@ -60,15 +57,16 @@ public class Main {
                     if (kind.equals(StandardWatchEventKinds.ENTRY_CREATE)) {
                         String filePath = path.getAbsolutePath() + "\\" + context;
                         System.out.println(filePath);
-//                        if (filePath.contains(".csv")) {
-//                            Measurement createdMeasurement = new Measurement(new File(filePath));
-//                            FinalRaport finalRaport;
-//                            List<FISRaport> fisRaports = getFISRaports();
-//                            for (FISRaport fisRaport : fisRaports) {
-//                                finalRaport = new FinalRaport(createdMeasurement, fisRaport);
-//                                generateFinalRaport(finalRaport);
-//                            }
-//                        }
+                        if (filePath.contains(".csv")) {
+                            Thread.sleep(10);
+                            Measurement createdMeasurement = new Measurement(new File(filePath));
+                            FinalRaport finalRaport;
+                            List<FISRaport> fisRaports = getFISRaports();
+                            for (FISRaport fisRaport : fisRaports) {
+                                finalRaport = new FinalRaport(createdMeasurement, fisRaport);
+                                generateFinalRaport(finalRaport);
+                            }
+                        }
                     }
                 }
             } while (watchKey.reset());
@@ -77,6 +75,7 @@ public class Main {
         } finally {
             try {
                 watchdog.getWatchService().close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
