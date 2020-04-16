@@ -16,9 +16,9 @@ public class Measurement {
         this.path = path;
         this.measurementValues = new ArrayList<>();
         getMeasurementValuesFromFile();
-        if (this.measurementValues != null) {
+        if (this.measurementValues.size() == 5) {
             this.PIN = this.measurementValues.get(2);
-        }
+        } else this.PIN = "";
     }
 
     public File getPath() {
@@ -42,19 +42,24 @@ public class Measurement {
 
     private void getMeasurementValuesFromFile() {
         CSVReader csvReader = new CSVReader(this.path);
-        String line = csvReader.getValues().get(0);
-        String[] values = line.split(";");
-        this.measurementValues.addAll(Arrays.asList(values));
+        if (!csvReader.getValues().isEmpty()) {
+            String line = csvReader.getValues().get(0);
+            String[] values = line.split(";");
+            this.measurementValues.addAll(Arrays.asList(values));
+        }
     }
 
     @Override
     public String toString() {
-        String values = String.format("\n\t[Date] %s\n\t[Time] %s\n\t[PIN] %s\n\t[Doors] %s\n\t[Measured Speed] %s\n",
-                this.measurementValues.get(0),
-                this.measurementValues.get(1),
-                this.measurementValues.get(2),
-                this.measurementValues.get(3),
-                this.measurementValues.get(4));
-        return String.format("\n[FileName] %s\n[Path] %s\n[Values] %s", this.path.getName(), this.path, values);
+        if (this.measurementValues.size() == 5) {
+            String values = String.format("\n\t[Date] %s\n\t[Time] %s\n\t[PIN] %s\n\t[Doors] %s\n\t[Measured Speed] %s\n",
+                    this.measurementValues.get(0),
+                    this.measurementValues.get(1),
+                    this.measurementValues.get(2),
+                    this.measurementValues.get(3),
+                    this.measurementValues.get(4));
+            return String.format("\n[FileName] %s\n[Path] %s\n[Values] %s", this.path.getName(), this.path, values);
+        } else
+            return String.format("\n[FileName] %s\n[Path] %s\n[Values] %s", this.path.getName(), this.path, "File corrupted\n");
     }
 }
