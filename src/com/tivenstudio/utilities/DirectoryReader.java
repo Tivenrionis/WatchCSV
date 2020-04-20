@@ -22,7 +22,7 @@ public class DirectoryReader {
      * Initializes Set of File objects, lists files at given directory and adds them to File set.
      * If directory is <b>null</b> prints out "Path not found" message.
      *
-     * @param directoryPath File object representing path to directory to read
+     * @param directoryPath File object representing path to directory to read.
      */
     public DirectoryReader(File directoryPath) {
         this.files = new HashSet<>();
@@ -34,7 +34,7 @@ public class DirectoryReader {
     /**
      * Returns initialized Set of Files of current instance.
      *
-     * @return Initialized object of Set(File)
+     * @return Initialized object of Set(File).
      */
     public Set<File> getFiles() {
         return files;
@@ -44,7 +44,7 @@ public class DirectoryReader {
      * This method returns absolute path of each file in Set of File objects
      * of current DirectoryReader instance.
      *
-     * @return List of strings containing absolute paths of files in directory
+     * @return List of strings containing absolute paths of files in directory.
      */
     public List<String> getPaths() {
         List<String> paths = new ArrayList<>();

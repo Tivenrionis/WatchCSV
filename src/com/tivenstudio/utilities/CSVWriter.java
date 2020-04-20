@@ -10,7 +10,7 @@ import java.util.List;
  * @version 1.0 <br>
  * Date: 08.04.2020 <br>
  * Time: 10:20 <br>
- * Class name: CSVWriter<br>
+ * Class name: CSVWriter <br>
  * Description: This class is used to store data in files
  * of given name and destination path.
  */

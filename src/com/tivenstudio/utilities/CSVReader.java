@@ -11,7 +11,7 @@ import java.util.List;
  * @version 1.0 <br>
  * Date: 06.04.2020 <br>
  * Time: 08:11 <br>
- * Class name: CSVReader<br>
+ * Class name: CSVReader <br>
  * Description: This class is used to read data form a given file.
  */
 public class CSVReader {

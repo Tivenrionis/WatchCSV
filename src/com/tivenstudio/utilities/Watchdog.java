@@ -23,8 +23,8 @@ public class Watchdog {
      * after that, it is initializing WatchService, the Map consisting of
      * WatchKey and Path object, and registering given directory.
      *
-     * @param directory - Path object containing path to the directory to register
-     * @throws IOException - If and I/O occurs during registering or initializing WatchService
+     * @param directory - Path object containing path to the directory to register.
+     * @throws IOException - If and I/O occurs during registering or initializing WatchService.
      */
     public Watchdog(Path directory) throws IOException {
         this.watchService = FileSystems.getDefault().newWatchService();
@@ -40,7 +40,7 @@ public class Watchdog {
      * as a value to the (WatchKey,Path) map.
      *
      * @param dir - Path object containing path to the directory to register
-     * @throws IOException - If I/O occurs during registering
+     * @throws IOException - If I/O occurs during registering.
      */
     public void registerDirectory(Path dir) throws IOException {
         WatchKey key = dir.register(this.watchService,
@@ -64,7 +64,7 @@ public class Watchdog {
      * Returns (WatchKey,Path) map
      * of current Watchdog class instance.
      *
-     * @return Initialized object of Map(WatchKey,Path)
+     * @return Initialized object of Map(WatchKey,Path).
      */
     public Map<WatchKey, Path> getKeyMap() {
         return keyMap;

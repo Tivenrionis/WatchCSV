@@ -20,6 +20,7 @@ public class DirectoryComparator {
      * and returns files not present in second directory.
      * It takes first given directory and checks if the files located there
      * are present in second given directory path.
+     *
      * @param dirA - Directory to check if its files are present in <b>dirB</b>
      * @param dirB - Directory to check if its containing files of directory <b>dirA</b>
      * @return Set of File objects representing result of subtracting <b>dirB</b> from <b>dirA</b>.
