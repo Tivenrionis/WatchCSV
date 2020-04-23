@@ -40,7 +40,10 @@ public class DirectoryComparator {
 
         }
         filesInDirA.removeAll(toBeDeleted);
-        System.out.println("[REMOVED] " + toBeDeleted);
+        System.out.println("[NOT PROCESSING]:");
+        for (File f : toBeDeleted) {
+            System.out.println("\t"+ f.getAbsolutePath());
+        }
         return filesInDirA;
 
     }

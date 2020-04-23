@@ -27,11 +27,16 @@ public class Main {
     private static Watchdog watchdog;
 
     public static void main(String[] args) {
+        System.out.println("[FILES IN MEASUREMENT DIRECTORY]");
         listFiles(measurementsPath);
-
+        System.out.println();
+        System.out.println("[FILES IN RAPORT DIRECTORY]");
         System.out.println(getFISRaports());
+        System.out.println("---------------------------");
+        System.out.println("[FILES IN MEASUREMENT DIRECTORY]");
         System.out.println(getMeasurements());
         System.out.println("---------------------------");
+        System.out.println("[DIFFERENCE]");
         System.out.println(getMeasurements(DirectoryComparator.compare(measurementsPath, finalDestinationPath)));
         System.out.println();
         System.out.println("\t Starting main app");
